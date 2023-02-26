@@ -1,0 +1,95 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<section id="cadastro">
+    <div>
+        <div id="titulo">
+            <h1>PET SHOP DOGO</h1>
+        </div>
+
+        <form #addForm="ngForm" (ngSubmit)="onAddOrder(addForm)" id="formulario">
+            <label for="petName">Nome do pet:</label>
+            <input type="text" ngModel name="petName" id="petName" required>
+            <label for="specie">Espécie do pet:</label>
+            <input type="text" ngModel name="specie" id="specie" required>
+            <label for="breed">Raça do pet:</label>
+            <input type="text" ngModel name="breed" id="breed" required>
+            <label for="height">Tamanho do pet:</label>
+            <input type="text" ngModel name="height" id="height" required>
+            <label for="weight">Peso do pet:</label>
+            <input type="text" ngModel name="weight" id="weight" required>
+            <label for="coatType">Tipo da pelagem do pet:</label>
+            <input type="text" ngModel name="coatType" id="coatType" required>
+            <label for="treatment">Tratamento:</label>
+            <select id="treatment" ngModel name="treatment" name="treatment" required>
+                <option value="Banho">Banho</option>
+                <option value="Tosa">Tosa</option>
+                <option value="BanhoTosa">Banho & Tosa</option>
+            </select>
+            <label for="tutorName">Nome do Tutor:</label>
+            <input type="text" ngModel name="tutorName" id="tutorName" required>
+            <label for="tutorCel">Telefone do Tutor:</label>
+            <input type="text" ngModel name="tutorCel" id="tutorCel" required>
+            <button type="submit" id="add-order-form">Cadastrar</button>
+        </form>
+    </div>
+</section>
+<section id="ordens">
+    <div *ngFor="let pet of pets">
+        <ul id="orderContainer">
+            <span></span>
+            <li>Nome do Pet: {{pet.petName}}</li>
+            <li>Espécie: {{pet.specie}}</li>
+            <li>Raça: {{pet.breed}}</li>
+            <li>Tamanho: {{pet.height}}</li>
+            <li>Peso: {{pet.weight}}</li>
+            <li>Tipo de pelagem: {{pet.coatType}}</li>
+            <li>Tratamento: {{pet.treatment}}</li>
+            <li>Nome do tutor: {{pet.tutorName}}</li>
+            <li>Telefone do tutor: {{pet.tutorCel}}</li>
+            <button (click)="openEditModal(pet)">Editar</button>
+            <button (click)="onDeleteOrder(pet.id)">Deletar</button>
+        </ul>
+    </div>
+</section>
+
+
+
+    <div id="blur"></div>
+<ng-template #editPetModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Editar pet</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #editForm="ngForm" id="editForm">
+        <label for="petName">Nome do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.petName" name="petName" id="petName" required>
+        <label for="specie">Espécie do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.specie" name="specie" id="specie" required>
+        <label for="breed">Raça do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.breed" name="breed" id="breed" required>
+        <label for="height">Tamanho do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.height" name="height" id="height" required>
+        <label for="weight">Peso do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.weight" name="weight" id="weight" required>
+        <label for="coatType">Tipo da pelagem do pet:</label>
+        <input type="text" [(ngModel)]="selectedPet.coatType" name="coatType" id="coatType" required>
+        <label for="treatment">Tratamento:</label>
+        <select [(ngModel)]="selectedPet.treatment" name="treatment" id="treatment" required>
+          <option value="Banho">Banho</option>
+          <option value="Tosa">Tosa</option>
+          <option value="BanhoTosa">Banho e Tosa</option>
+        </select>
+        <label for="tutorName">Nome do Tutor:</label>
+        <input type="text" [(ngModel)]="selectedPet.tutorName" name="tutorName" id="tutorName" required>
+        <label for="tutorCel">Telefone do Tutor:</label>
+        <input type="text" [(ngModel)]="selectedPet.tutorCel" name="tutorCel" id="tutorCel" required>
+        <button type="submit" (click)="onEditOrder(selectedPet)">Salvar</button>
+        </form>
+        
+          </div>
+        </ng-template>
+
